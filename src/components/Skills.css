@@ -1,0 +1,156 @@
+/* src/components/Skills.css */
+
+.skills-section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.skills-categories-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.skill-category {
+  flex: 1 1 300px;
+  min-width: max-content; /* Passt sich automatisch an den Inhalt an */
+  padding: 20px;
+  border-radius: 8px;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.skill-category h3 {
+  text-align: left;
+  margin-bottom: 30px;
+  font-size: 5em;
+  color: #4a90e2;
+  padding: 0 20px;
+  font-family: "Newsreader", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.skill-category ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+/* Spezifische Stile für Sprachkenntnisse-Liste, um die Bullets zu entfernen */
+.language-skills-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.skill-category li {
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 1.5em;
+}
+
+.language-skill-item {
+  margin-bottom: 15px; /* Mehr Abstand zwischen den Sprach-Items */
+}
+
+.language-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px; /* Abstand zwischen Text und Balken */
+  width: 75%; /* Nur 3/4 der Box-Breite, wie die Progress Bar */
+}
+
+.language-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.language-level-text {
+  font-size: 0.85em;
+  color: #666;
+}
+
+.progress-bar-container {
+  width: 75%; /* Nur 3/4 der Box-Breite */
+  background-color: #e9ecef; /* Hintergrund des leeren Balkens */
+  border-radius: 5px;
+  height: 18px; /* Höhe des Balkens */
+  overflow: hidden; /* Stellt sicher, dass der fill-Balken nicht überläuft */
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #007bff; /* Farbe des gefüllten Balkens */
+  border-radius: 5px; /* Abgerundete Ecken auch für den Füllbalken */
+  width: 0%; /* Startet bei 0% Breite */
+  transition: width 1.2s ease-out; /* Animations-Dauer und Easing */
+  /* Optional: Text im Balken zentrieren */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Oder center */
+  padding-right: 5px; /* Wenn Text im Balken ist */
+  box-sizing: border-box;
+}
+
+/* Optional: Stil für den Proficiency-Wert im Balken, falls du ihn anzeigen willst */
+.proficiency-value {
+  color: white;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+.skill-category p {
+  color: #777;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .skill-category {
+    flex-basis: 100%;
+    min-width: unset;
+  }
+  .language-info { /* Auf kleinen Bildschirmen eventuell untereinander anordnen */
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .language-level-text {
+    margin-top: 2px;
+  }
+  
+  /* NEU: Auf mobilen Geräten wieder einspaltig für Software/Hobby Skills */
+  .software-skills-list,
+  .hobby-skills-list {
+    columns: 1 !important;
+  }
+}
+
+/* NEU: 2-spaltiges Layout für Software- und Hobby-Skills */
+.software-skills-list,
+.hobby-skills-list {
+  list-style: none;
+  padding: 0;
+  columns: 2;
+  column-gap: 20px;
+  column-fill: balance;
+}
+
+/* GEÄNDERT: Styles für beide Listenelemente */
+.software-skill-item,
+.hobby-skill-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+  break-inside: avoid; /* Verhindert, dass Items zwischen Spalten aufgeteilt werden */
+  page-break-inside: avoid; /* Fallback für ältere Browser */
+}
+
+/* GEÄNDERT: Styles für beide Icon-Typen */
+.software-skill-item svg,
+.hobby-skill-item svg {
+  color: #333; /* Du kannst hier auch eine andere Farbe für Hobbies definieren, wenn du willst */
+  font-size: 1.5rem;
+  flex-shrink: 0; /* Verhindert, dass Icons schrumpfen */
+}

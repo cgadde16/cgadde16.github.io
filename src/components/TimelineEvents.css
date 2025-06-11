@@ -1,0 +1,239 @@
+/* Globale Variablen für einfache Anpassungen */
+:root {
+  --slot-item-height: 100px;
+}
+
+/* Hauptcontainer für die gesamte Timeline-Sektion */
+.timeline-container {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  background-color: #fff; /* GEÄNDERT: Von #555 zu weiß */
+  /* KORRIGIERT: Genug Höhe für mindestens 7 sichtbare Titel (7 * 100px = 700px) */
+  min-height: max(700px, 450px); /* Mindestens 7 Titel oder Event-Card-Höhe */
+  height: max(700px, 450px); /* Feste Höhe für konsistente Darstellung */
+}
+
+/* Linker Bereich für den Inhalt des Events */
+.event-content-area {
+  flex: 1;
+  padding: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: #000; /* GEÄNDERT: Von #fff zu schwarz */
+  overflow-y: auto;
+  /* KORRIGIERT: Gleiche Mindesthöhe wie Container */
+  min-height: max(700px, 450px);
+}
+
+/* Die Karte, die Logo und Text enthält */
+.event-card {
+  position: relative;
+  display: flex;
+  flex-direction: column; /* Richtet den Text-Container unter dem (unsichtbaren) Logo-Platz aus */
+  
+  /* Feste Höhe für die Karte, damit sie ihre Größe nicht ändert */
+  height: 450px;
+  /* Optionale maximale Höhe, falls der Viewport sehr klein ist */
+  max-height: 80vh; 
+
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.9); /* GEÄNDERT: Von rgba(0, 0, 0, 0.2) zu hellem Weiß */
+  padding: 2rem;
+  border-radius: 12px;box-sizing: border-box; /* Stellt sicher, dass Padding in die Höhe/Breite einberechnet wird */
+}
+
+/* Container, der das quadratische Logo in einen Kreis verwandelt */
+.event-logo-container {
+  /* Nimmt das Logo aus dem normalen Fluss und positioniert es absolut */
+  position: absolute;
+  top: 2rem; /* Abstand vom oberen Rand (gleicher Wert wie Padding der Karte) */
+  right: 2rem; /* Abstand vom rechten Rand (gleicher Wert wie Padding der Karte) */
+  bottom: 2rem; /* GEÄNDERT: Logo nutzt die komplette verfügbare Höhe */
+
+  width: 180px; /* GEÄNDERT: Noch breiter für größere Logos */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Das Logo-Bild selbst */
+.event-logo {
+  max-width: 90%; /* GEÄNDERT: Größer, da mehr Platz vorhanden */
+  max-height: 90%; /* GEÄNDERT: Größer, da mehr Platz vorhanden */
+  object-fit: contain;
+}
+
+/* Container für den gesamten Textblock */
+.event-text-content {
+  /* Sorgt dafür, dass der Textcontainer den gesamten verfügbaren Platz in der Karte ausfüllt */
+  flex-grow: 1;
+  /* Fügt einen vertikalen Scrollbalken hinzu, aber NUR wenn der Inhalt zu lang ist */
+  overflow-y: auto;
+  /* Etwas Abstand rechts, damit der Text nicht direkt unter dem Scrollbalken klebt */
+  padding-right: 1rem;
+}
+
+.event-card h2 {
+  margin-top: 0;
+  font-size: 2rem;
+  color: #000; /* GEÄNDERT: Von #fff zu schwarz */
+  line-height: 1.2;
+  
+  /* GEÄNDERT: Schafft Platz für das noch größere Logo. 180px (Logo-Breite) + 1rem (Puffer). */
+  /* Dadurch bricht der Text um, bevor er das Logo erreicht. */
+  margin-right: calc(180px + 1rem); 
+}
+
+.event-card .event-date {
+  font-size: 1rem;
+  color: #666; /* GEÄNDERT: Von #a0a0a0 zu dunklerem Grau */
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+  /* GEÄNDERT: Schafft Platz für das noch größere Logo beim Datum */
+  margin-right: calc(180px + 1rem);
+}
+
+.event-card p {
+  line-height: 1.6;
+  color: #333; /* GEÄNDERT: Von #dcdcdc zu dunklem Grau */
+  margin: 0;
+  /* GEÄNDERT: Schafft Platz für das noch größere Logo beim Fließtext */
+  margin-right: calc(180px + 1rem);
+}
+
+/* Rechter Bereich für die Titelliste */
+.titles-sidebar {
+  flex-basis: 35%;
+  max-width: 450px;
+  min-width: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  /* KORRIGIERT: Gleiche Mindesthöhe wie Container */
+  min-height: max(700px, 450px);
+  height: 100%; /* Nutzt die volle Höhe des Containers */
+}
+
+.titles-list-wrapper {
+  width: 90%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  /* KORRIGIERT: Mindesthöhe für 7 sichtbare Titel */
+  min-height: 700px;
+}
+
+.slot-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  /* KORRIGIERT: Mindesthöhe für die Liste */
+  min-height: 700px;
+}
+
+.slot-item {
+  height: var(--slot-item-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999; /* GEÄNDERT: Von #666 zu hellerem Grau für besseren Kontrast auf weißem Hintergrund */
+  font-size: var(--main-slot-font-size, 2.5em);
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 8px;
+  box-sizing: border-box;
+  text-align: center;
+  user-select: none;
+  transition: color 0.5s ease, transform 0.5s ease, opacity 0.5s ease;
+  transform: scale(0.8);
+  opacity: 0.5;
+}
+
+.slot-item.current {
+  color: #4a90e2;
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Responsive Anpassungen für mobile Geräte */
+@media (max-width: 768px) {
+  .timeline-container {
+    flex-direction: column-reverse;
+    /* KORRIGIERT: Auf Mobile mindestens 5 sichtbare Titel (5 * 100px = 500px) */
+    min-height: max(500px, 300px);
+    height: max(500px, 300px);
+  }
+  
+  .titles-sidebar {
+    flex-basis: auto;
+    width: 100%;
+    max-width: 100%;
+    height: 40vh; /* Mehr Platz für die Titel auf Mobile */
+    min-height: 500px; /* Mindestens 5 Titel sichtbar */
+  }
+  
+  .event-content-area {
+    padding: 2rem;
+    flex-grow: 1;
+    min-height: 300px; /* Auf Mobile reduzierte Mindesthöhe für Content */
+  }
+  
+  .event-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    padding-top: 200px; /* GEÄNDERT: Noch mehr Platz für das größere Logo schaffen */
+    /* Auf Mobilgeräten heben wir die feste Höhe auf, da der Platz begrenzt ist */
+    height: auto;
+  }
+
+  /* Auf Mobilgeräten ist der Textcontainer nicht mehr scrollbar, da die Karte mitwächst */
+  .event-text-content {
+    overflow-y: visible;
+    padding-right: 0;
+  }
+
+  .event-logo-container {
+    /* Position für Mobile anpassen */
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto; /* right überschreiben */
+    bottom: auto; /* GEÄNDERT: bottom überschreiben für mobile Ansicht */
+    width: 160px; /* GEÄNDERT: Größere Breite für Mobile */
+    height: 50%; /* GEÄNDERT: Nur 50% der Kartenhöhe auf Mobile */
+  }
+
+  .event-card h2 {
+    font-size: 1.5rem;
+    /* GEÄNDERT: In der mobilen Ansicht wird der Abstand rechts nicht benötigt. */
+    margin-right: 0; 
+  }
+
+  .event-card .event-date {
+    /* NEU: In der mobilen Ansicht wird der Abstand rechts nicht benötigt. */
+    margin-right: 0;
+  }
+
+  .event-card p {
+    /* NEU: In der mobilen Ansicht wird der Abstand rechts nicht benötigt. */
+    margin-right: 0;
+  }
+
+  .titles-list-wrapper {
+    min-height: 500px; /* Für 5 sichtbare Titel auf Mobile */
+  }
+
+  .slot-list {
+    min-height: 500px; /* Für 5 sichtbare Titel auf Mobile */
+  }
+}
