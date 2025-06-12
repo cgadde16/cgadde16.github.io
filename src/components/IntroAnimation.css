@@ -1,3 +1,5 @@
+/* src/components/IntroAnimation.css */
+
 .intro-overlay {
   position: fixed;
   top: 0;
@@ -6,26 +8,63 @@
   height: 100vh;
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.4s ease-out;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  opacity: 1;
-  transition: opacity 0.4s ease-out; /* Fade out duration */
-  padding: 20px;
+  padding: 0;
   box-sizing: border-box;
 }
 
 .intro-overlay.fade-out {
   opacity: 0;
+  pointer-events: none;
 }
 
+/* ====================================================================== */
+/* ===== LAYOUT-SEKTIONEN FÜR PERFEKTE AUSRICHTUNG ===== */
+/* ====================================================================== */
+
+.intro-top-section {
+  /* Mimikt die .person-hero-section */
+  height: 55vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.intro-bottom-section {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: hidden; /* Verhindert mögliches Überlaufen */
+}
+
+/* ====================================================================== */
+/* ===== ANGEPASSTE INHALTSSTILE ===== */
+/* ====================================================================== */
+
 .intro-header {
-  text-align: center;
-  margin-bottom: 2rem;
+  /* Mimikt .person-hero-text für die horizontale Ausrichtung */
+  width: 100%;
+  max-width: 750px;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  text-align: left;
+  
+  /* Margin wird entfernt, da die Zentrierung vom Container kommt */
+  margin-bottom: 0;
+  
+  /* Stile für das Einblenden */
   opacity: 0;
-  transform: translateY(-30px); /* Reduced movement */
-  transition: transform 0.4s ease-out, opacity 0.4s ease-out; /* Faster animation */
+  transform: translateY(-30px);
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out;
   will-change: transform, opacity;
 }
 
@@ -35,28 +74,26 @@
 }
 
 .intro-name {
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 700;
+  letter-spacing: 1.5px;
   color: #4a90e2;
-  margin: 0 0 0.5rem 0;
+  margin: 0;
   font-family: 'Segoe UI', 'Roboto', sans-serif;
 }
 
 .intro-subtitle {
-  font-size: 1.2rem;
-  color: #7f8c8d;
-  margin: 0;
+  font-size: 1.5rem;
+  margin: 0.5rem 0 0 0;
   font-weight: 300;
-  animation: fadeIn 0.6s ease-out forwards; /* Faster fade in */
+  letter-spacing: 1px;
+  color: #6c757d;
 }
 
 .intro-code-container {
   width: 100%;
   max-width: 900px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  animation: slideInFromBottom 0.6s ease-out; /* Faster slide in */
+  animation: slideInFromBottom 0.6s ease-out;
 }
 
 .blinking-cursor-container {
@@ -72,16 +109,11 @@
   color: #383a42;
   font-family: 'Fira Code', 'Consolas', monospace;
   font-size: 14px;
-  animation: blink 0.8s infinite; /* Faster blinking */
-}
-
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  animation: blink 0.8s infinite;
 }
 
 @keyframes slideInFromBottom {
-  0% { transform: translateY(20px); opacity: 0; } /* Reduced movement */
+  0% { transform: translateY(20px); opacity: 0; }
   100% { transform: translateY(0); opacity: 1; }
 }
 
@@ -90,30 +122,24 @@
   51%, 100% { opacity: 0; }
 }
 
-/* Responsive Design */
+/* ===== RESPONSIVE ANPASSUNGEN ===== */
 @media (max-width: 768px) {
+  .intro-top-section {
+    height: 45vh;
+  }
+  .intro-header {
+    padding: 0 1rem;
+  }
   .intro-name {
-    font-size: 2rem;
+    font-size: 2.8rem;
   }
   .intro-subtitle {
-    font-size: 1rem;
-  }
-  .intro-code-container {
-    max-width: 95%;
-  }
-  .blinking-cursor-container {
-    padding-left: 40px;
+    font-size: 1.2rem;
   }
 }
 
 @media (max-width: 480px) {
   .intro-name {
-    font-size: 1.5rem;
-  }
-  .intro-overlay {
-    padding: 10px;
-  }
-  .intro-header {
-    margin-bottom: 1rem;
+    font-size: 2.2rem;
   }
 }
