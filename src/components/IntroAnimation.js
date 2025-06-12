@@ -13,16 +13,21 @@ const modernLightTheme = {
 
 const IntroAnimation = () => {
   const { t } = useTranslation();
+  
+  // States
   const [code, setCode] = useState('');
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [showHeader, setShowHeader] = useState(false);
-  
-  // Hole Name und Titel aus den Übersetzungen
-  const personName = t('person.name');
-  // ===== NEU: Hole den Titel aus den Übersetzungen =====
-  const titleOrProfession = t('person.titleOrProfession');
+  const [animatedSubtitle, setAnimatedSubtitle] = useState('');
+  const [isTextAnimating, setIsTextAnimating] = useState(true);
 
+  // Texte
+  const personName = t('person.name');
+  const finalTitle = t('person.titleOrProfession');
+  const loadingText = "Profile Loading...";
+
+  // ===== WIEDERHERGESTELLT: Der vollständige Code für die Animation =====
   const codeLines = [
     "import React, { useState, useEffect } from 'react';",
     "import './styles/App.css';",
@@ -48,36 +53,78 @@ const IntroAnimation = () => {
     '// --- Boot sequence complete ---',
   ];
 
+  // Effekt-Hook für alle Animationen
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     setShowHeader(true);
 
-    let lineIndex = 0;
-    const typingTimeout = setTimeout(() => {
-      const typingInterval = setInterval(() => {
+    let textAnimationTimeout;
+    let codeTypingInterval;
+
+    // --- Code-Schreib-Animation (läuft parallel) ---
+    const codeTypingTimeout = setTimeout(() => {
+      let lineIndex = 0;
+      codeTypingInterval = setInterval(() => {
         if (lineIndex < codeLines.length) {
           setCode(prev => prev + codeLines[lineIndex] + '\n');
           lineIndex++;
         } else {
-          clearInterval(typingInterval);
+          clearInterval(codeTypingInterval);
         }
       }, 20);
     }, 100);
 
-    const animationTimeout = setTimeout(() => {
-      setIsFadingOut(true);
-      setTimeout(() => {
-        setIsVisible(false);
-        document.body.style.overflow = 'auto';
-      }, 400); // Dauer der Fade-Animation
-    }, 3000); // Startet Ausblenden nach 3 Sekunden
+    // --- Text-Animations-Sequenz für den Untertitel ---
+    const TYPING_SPEED = 90;
+    const DELETING_SPEED = 50;
+    const PAUSE_DURATION = 1200;
 
+    const typeText = (text, index, onComplete) => {
+      if (index <= text.length) {
+        setAnimatedSubtitle(text.substring(0, index));
+        textAnimationTimeout = setTimeout(() => typeText(text, index + 1, onComplete), TYPING_SPEED);
+      } else {
+        onComplete();
+      }
+    };
+
+    const deleteText = (index, onComplete) => {
+      if (index >= 0) {
+        setAnimatedSubtitle(prev => prev.substring(0, index));
+        textAnimationTimeout = setTimeout(() => deleteText(index - 1, onComplete), DELETING_SPEED);
+      } else {
+        onComplete();
+      }
+    };
+    
+    // Start der Sequenz
+    textAnimationTimeout = setTimeout(() => {
+      typeText(loadingText, 0, () => {
+        textAnimationTimeout = setTimeout(() => {
+          deleteText(loadingText.length, () => {
+            typeText(finalTitle, 0, () => {
+              setIsTextAnimating(false);
+              textAnimationTimeout = setTimeout(() => {
+                setIsFadingOut(true);
+                setTimeout(() => {
+                  setIsVisible(false);
+                  document.body.style.overflow = 'auto';
+                }, 400); 
+              }, 500);
+            });
+          });
+        }, PAUSE_DURATION);
+      });
+    }, 500);
+
+    // Aufräumfunktion
     return () => {
-      clearTimeout(typingTimeout);
-      clearTimeout(animationTimeout);
+      clearTimeout(codeTypingTimeout);
+      clearInterval(codeTypingInterval);
+      clearTimeout(textAnimationTimeout);
       document.body.style.overflow = 'auto';
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [finalTitle, personName]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!isVisible) return null;
 
@@ -86,8 +133,10 @@ const IntroAnimation = () => {
       <div className="intro-top-section">
         <div className={`intro-header ${showHeader ? 'show' : ''}`}>
           <h1 className="intro-name">{personName}</h1>
-          {/* ===== GEÄNDERT: Zeige den dynamischen Titel anstelle von "Portfolio Loading..." ===== */}
-          <p className="intro-subtitle">{titleOrProfession}</p>
+          <p className="intro-subtitle">
+            {animatedSubtitle}
+            {isTextAnimating && <span className="blinking-cursor-subtitle">_</span>}
+          </p>
         </div>
       </div>
 
@@ -122,7 +171,7 @@ const IntroAnimation = () => {
             {code}
           </SyntaxHighlighter>
           <div className="blinking-cursor-container">
-            <span className="blinking-cursor">_</span>
+            <span className="blinking-cursor-code">_</span>
           </div>
         </div>
       </div>
