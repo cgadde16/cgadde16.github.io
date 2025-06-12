@@ -8,23 +8,32 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  /* GEÄNDERT: Dies ist der entscheidende Teil! */
-  /* Er macht diesen Container zum Bezugspunkt für absolut positionierte Kinder. */
   position: relative; 
 }
 
-/* NEU: Stile für den Language Switcher Container */
+/* NEU: Stile für den Language Switcher Container (unverändert) */
 .language-switcher-container {
-  position: absolute; /* Positioniert das Element relativ zum .person-hero-section */
-  top: 1.5rem;        /* 24px Abstand von oben */
-  right: 1.5rem;       /* 24px Abstand von rechts */
-  z-index: 10;        /* Stellt sicher, dass es über allem anderen liegt */
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 10;
 }
 
-/* Der Rest der Hero-Stile bleibt gleich */
+/* ====================================================================== */
+/* ===== HIER IST DIE ENTSCHEIDENDE ÄNDERUNG ===== */
+/* ====================================================================== */
 .person-hero-text {
-  text-align: right; 
+  /* GEÄNDERT: Textausrichtung von 'right' auf 'left' */
+  text-align: left; 
+  
+  /* NEU: Wenden Sie die gleichen Layout-Regeln an wie bei .person-content-section,
+     damit die linke Kante perfekt übereinstimmt. */
+  width: 100%;             /* Nimmt die volle Breite des Flex-Containers ein */
+  max-width: 750px;        /* Aber nur bis zu dieser maximalen Breite */
+  margin-left: auto;       /* Zentriert den Block horizontal */
+  margin-right: auto;      /* Zentriert den Block horizontal */
+  padding: 0 2rem;         /* Gleicher seitlicher Abstand wie der Inhalt unten */
+  box-sizing: border-box;  /* Wichtig, damit padding die Breite nicht sprengt */
 }
 
 .person-hero-text h1 {
@@ -99,12 +108,16 @@
     height: 45vh;
   }
 
-  /* NEU: Abstand des Switchers auf Mobilgeräten anpassen */
   .language-switcher-container {
     top: 1rem;
     right: 1rem;
   }
-
+  
+  /* NEU: Wir passen auch hier das Padding an, damit es mit dem Inhalt unten übereinstimmt */
+  .person-hero-text {
+    padding: 0 1rem;
+  }
+  
   .person-hero-text h1 {
     font-size: 2.8rem;
   }
@@ -113,10 +126,12 @@
     font-size: 1.2rem;
   }
   
+  /* GEÄNDERT: Diese Regel, die den Text zentriert hat, wird entfernt. */
+  /* Er bleibt jetzt immer linksbündig. */
   @media (max-width: 480px) {
-    .person-hero-text {
+    /* .person-hero-text {
       text-align: center;
-    }
+    } */
   }
 
   .person-content-section {

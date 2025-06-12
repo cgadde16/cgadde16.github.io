@@ -1,65 +1,119 @@
-/* Das Overlay, das die gesamte Seite abdeckt */
 .intro-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #111; /* Dunkler Hintergrund */
-    color: #0f0; /* Grüne Schrift */
-    font-family: 'Courier New', Courier, monospace;
-    z-index: 9999;
-    opacity: 1;
-    transition: opacity 0.5s ease-out;
-    overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.4s ease-out; /* Fade out duration */
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .intro-overlay.fade-out {
-    opacity: 0;
-    pointer-events: none;
+  opacity: 0;
 }
 
-/* Neuer Container für den gesamten Code-Output */
-.code-output {
-    padding: 20px;
-    height: 100%;
-    overflow-y: auto; /* Erlaubt Scrollen, falls der Code zu lang ist */
+.intro-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(-30px); /* Reduced movement */
+  transition: transform 0.4s ease-out, opacity 0.4s ease-out; /* Faster animation */
+  will-change: transform, opacity;
 }
 
-/* Jede einzelne Zeile wird ein Flex-Container */
-.code-line {
-    display: flex;
-    align-items: flex-start; /* Stellt sicher, dass mehrzeiliger Code oben ausgerichtet ist */
-    font-size: 14px;
-    min-height: 1.2em; /* Sorgt für gleichmäßigen Zeilenabstand, auch bei leeren Zeilen */
+.intro-header.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* Styling für die Zeilennummer */
-.line-number {
-    flex-shrink: 0; /* Verhindert, dass die Nummer kleiner wird */
-    width: 40px; /* Feste Breite für die Nummer-Spalte */
-    padding-right: 15px;
-    text-align: right;
-    color: #666; /* Unauffällige Farbe für die Nummern */
-    user-select: none; /* Verhindert, dass man die Nummern markieren kann */
-    border-right: 1px solid #333; /* Die visuelle Trennlinie */
+.intro-name {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #4a90e2;
+  margin: 0 0 0.5rem 0;
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
 }
 
-/* Styling für den eigentlichen Code-Inhalt */
-.line-content {
-    padding-left: 15px;
-    white-space: pre; /* Wichtig, um Einrückungen aus dem Array zu erhalten */
-    word-break: break-all;
+.intro-subtitle {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin: 0;
+  font-weight: 300;
+  animation: fadeIn 0.6s ease-out forwards; /* Faster fade in */
 }
 
-/* Der blinkende Cursor */
+.intro-code-container {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: slideInFromBottom 0.6s ease-out; /* Faster slide in */
+}
+
+.blinking-cursor-container {
+  width: 100%;
+  max-width: 800px;
+  text-align: left;
+  padding-left: 60px;
+  margin-top: -10px;
+}
+
 .blinking-cursor {
-    animation: blink 1s step-end infinite;
-    font-weight: bold;
+  display: inline-block;
+  color: #383a42;
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 14px;
+  animation: blink 0.8s infinite; /* Faster blinking */
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideInFromBottom {
+  0% { transform: translateY(20px); opacity: 0; } /* Reduced movement */
+  100% { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes blink {
-    50% {
-        opacity: 0;
-    }
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .intro-name {
+    font-size: 2rem;
+  }
+  .intro-subtitle {
+    font-size: 1rem;
+  }
+  .intro-code-container {
+    max-width: 95%;
+  }
+  .blinking-cursor-container {
+    padding-left: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-name {
+    font-size: 1.5rem;
+  }
+  .intro-overlay {
+    padding: 10px;
+  }
+  .intro-header {
+    margin-bottom: 1rem;
+  }
 }
