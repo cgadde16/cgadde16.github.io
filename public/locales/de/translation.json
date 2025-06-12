@@ -19,20 +19,20 @@
     },
     "proj2": {
       "title": "Automatisches Sammeln maliziöser Softwarepakete",
-      "description": "Neugestaltung und technische Überarbeitung einer bestehenden Online-Shopping-Plattform.",
+      "description": "Entwicklung eines Systems zur automatischen Sammlung maliziöser Softwarepakete verschiedener Registries",
       "category": "Webentwicklung",
       "longDescription": "Der Relaunch der E-Commerce Plattform beinhaltete eine vollständige Überarbeitung des Frontends mit React und Next.js für verbesserte Performance und SEO, sowie die Migration des Backends auf eine Microservice-Architektur. Besondere Herausforderungen waren die Datenmigration und die nahtlose Integration neuer Zahlungsanbieter."
     },
     "proj3": {
       "title": "G24e Aero Design",
-      "description": "Eine App zur Planung, Organisation und Durchführung von Veranstaltungen.",
-      "category": "Mobile",
+      "description": "Entwurf und Fertigung des Heckflügels des Formula Student Rennautos der HBRS",
+      "category": "CAD",
       "longDescription": "Der Relaunch der E-Commerce Plattform beinhaltete eine vollständige Überarbeitung des Frontends mit React und Next.js für verbesserte Performance und SEO, sowie die Migration des Backends auf eine Microservice-Architektur. Besondere Herausforderungen waren die Datenmigration und die nahtlose Integration neuer Zahlungsanbieter."
     },
     "proj4": {
       "title": "cgadde16.github.io",
-      "description": "Interaktives Dashboard zur Visualisierung und Analyse von Unternehmensdaten.",
-      "category": "Business Intelligence",
+      "description": "Diese Website wurde mithilfe von React erstellt",
+      "category": "Webentwicklung",
       "longDescription": "Der Relaunch der E-Commerce Plattform beinhaltete eine vollständige Überarbeitung des Frontends mit React und Next.js für verbesserte Performance und SEO, sowie die Migration des Backends auf eine Microservice-Architektur. Besondere Herausforderungen waren die Datenmigration und die nahtlose Integration neuer Zahlungsanbieter."
     },
     "proj5": {
