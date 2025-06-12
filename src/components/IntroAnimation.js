@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import './IntroAnimation.css';
 
-// Das Theme für den SyntaxHighlighter (unverändert)
 const modernLightTheme = {
   hljs: { display: 'block', overflowX: 'auto', padding: '0.5em', background: '#ffffff', color: '#383a42' },
   'hljs-comment': { color: '#a0a1a7', fontStyle: 'italic' }, 'hljs-quote': { color: '#a0a1a7', fontStyle: 'italic' }, 'hljs-doctag': { color: '#a626a4' }, 'hljs-keyword': { color: '#a626a4' }, 'hljs-formula': { color: '#a626a4' }, 'hljs-section': { color: '#e45649' }, 'hljs-name': { color: '#e45649' }, 'hljs-selector-tag': { color: '#e45649' }, 'hljs-deletion': { color: '#e45649' }, 'hljs-subst': { color: '#e45649' }, 'hljs-literal': { color: '#0184bb' }, 'hljs-string': { color: '#50a14f' }, 'hljs-regexp': { color: '#50a14f' }, 'hljs-addition': { color: '#50a14f' }, 'hljs-attribute': { color: '#50a14f' }, 'hljs-meta-string': { color: '#50a14f' }, 'hljs-built_in': { color: '#c18401' }, 'hljs-class .hljs-title': { color: '#c18401' }, 'hljs-attr': { color: '#986801' }, 'hljs-variable': { color: '#986801' }, 'hljs-template-variable': { color: '#986801' }, 'hljs-type': { color: '#986801' }, 'hljs-selector-class': { color: '#986801' }, 'hljs-selector-attr': { color: '#986801' }, 'hljs-selector-pseudo': { color: '#986801' }, 'hljs-number': { color: '#986801' }, 'hljs-symbol': { color: '#4078f2' }, 'hljs-bullet': { color: '#4078f2' }, 'hljs-link': { color: '#4078f2' }, 'hljs-meta': { color: '#4078f2' }, 'hljs-selector-id': { color: '#4078f2' }, 'hljs-title': { color: '#4078f2' }
@@ -14,7 +13,6 @@ const modernLightTheme = {
 const IntroAnimation = () => {
   const { t } = useTranslation();
   
-  // States
   const [code, setCode] = useState('');
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -22,12 +20,9 @@ const IntroAnimation = () => {
   const [animatedSubtitle, setAnimatedSubtitle] = useState('');
   const [isTextAnimating, setIsTextAnimating] = useState(true);
 
-  // Texte
   const personName = t('person.name');
-  const finalTitle = t('person.titleOrProfession');
-  const loadingText = "Profile Loading...";
+  const finalTitle = "\u00A0";
 
-  // ===== WIEDERHERGESTELLT: Der vollständige Code für die Animation =====
   const codeLines = [
     "import React, { useState, useEffect } from 'react';",
     "import './styles/App.css';",
@@ -53,7 +48,6 @@ const IntroAnimation = () => {
     '// --- Boot sequence complete ---',
   ];
 
-  // Effekt-Hook für alle Animationen
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     setShowHeader(true);
@@ -61,7 +55,6 @@ const IntroAnimation = () => {
     let textAnimationTimeout;
     let codeTypingInterval;
 
-    // --- Code-Schreib-Animation (läuft parallel) ---
     const codeTypingTimeout = setTimeout(() => {
       let lineIndex = 0;
       codeTypingInterval = setInterval(() => {
@@ -74,10 +67,9 @@ const IntroAnimation = () => {
       }, 20);
     }, 100);
 
-    // --- Text-Animations-Sequenz für den Untertitel ---
     const TYPING_SPEED = 90;
     const DELETING_SPEED = 50;
-    const PAUSE_DURATION = 1200;
+    const PAUSE_DURATION = 600;
 
     const typeText = (text, index, onComplete) => {
       if (index <= text.length) {
@@ -96,12 +88,17 @@ const IntroAnimation = () => {
         onComplete();
       }
     };
-    
-    // Start der Sequenz
-    textAnimationTimeout = setTimeout(() => {
-      typeText(loadingText, 0, () => {
+
+    const loadingPhases = ["Profile Loading", "Profile Loading.", "Profile Loading..", "Profile Loading..."];
+    const STEP_DELAY = 400;
+
+    const animateLoadingSequence = (index = 0) => {
+      if (index < loadingPhases.length) {
+        setAnimatedSubtitle(loadingPhases[index]);
+        textAnimationTimeout = setTimeout(() => animateLoadingSequence(index + 1), STEP_DELAY);
+      } else {
         textAnimationTimeout = setTimeout(() => {
-          deleteText(loadingText.length, () => {
+          deleteText(loadingPhases[loadingPhases.length - 1].length, () => {
             typeText(finalTitle, 0, () => {
               setIsTextAnimating(false);
               textAnimationTimeout = setTimeout(() => {
@@ -109,15 +106,18 @@ const IntroAnimation = () => {
                 setTimeout(() => {
                   setIsVisible(false);
                   document.body.style.overflow = 'auto';
-                }, 400); 
+                }, 400);
               }, 500);
             });
           });
         }, PAUSE_DURATION);
-      });
+      }
+    };
+
+    textAnimationTimeout = setTimeout(() => {
+      animateLoadingSequence();
     }, 500);
 
-    // Aufräumfunktion
     return () => {
       clearTimeout(codeTypingTimeout);
       clearInterval(codeTypingInterval);
@@ -134,8 +134,7 @@ const IntroAnimation = () => {
         <div className={`intro-header ${showHeader ? 'show' : ''}`}>
           <h1 className="intro-name">{personName}</h1>
           <p className="intro-subtitle">
-            {animatedSubtitle}
-            {isTextAnimating && <span className="blinking-cursor-subtitle">_</span>}
+            {animatedSubtitle || '\u00A0'}
           </p>
         </div>
       </div>
