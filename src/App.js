@@ -6,11 +6,13 @@ import TimelineEvents from './components/TimelineEvents'; // Unsere Haupt-Timeli
 import Projects from './components/Projects';   
 import Footer from "./components/Footer";
 import Skills from "./components/Skills";
-import Person from "./components/Person"
+import Person from "./components/Person";
+import IntroAnimation from "./components/IntroAnimation"
 
 function App() {
   return (
     <div className="App">
+      <IntroAnimation />
       <Person />
       <TimelineEvents />
       <Projects />
