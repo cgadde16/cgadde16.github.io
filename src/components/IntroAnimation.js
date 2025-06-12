@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import './IntroAnimation.css';
 
-// Das Theme für den SyntaxHighlighter
+// Das Theme für den SyntaxHighlighter (unverändert)
 const modernLightTheme = {
   hljs: { display: 'block', overflowX: 'auto', padding: '0.5em', background: '#ffffff', color: '#383a42' },
   'hljs-comment': { color: '#a0a1a7', fontStyle: 'italic' }, 'hljs-quote': { color: '#a0a1a7', fontStyle: 'italic' }, 'hljs-doctag': { color: '#a626a4' }, 'hljs-keyword': { color: '#a626a4' }, 'hljs-formula': { color: '#a626a4' }, 'hljs-section': { color: '#e45649' }, 'hljs-name': { color: '#e45649' }, 'hljs-selector-tag': { color: '#e45649' }, 'hljs-deletion': { color: '#e45649' }, 'hljs-subst': { color: '#e45649' }, 'hljs-literal': { color: '#0184bb' }, 'hljs-string': { color: '#50a14f' }, 'hljs-regexp': { color: '#50a14f' }, 'hljs-addition': { color: '#50a14f' }, 'hljs-attribute': { color: '#50a14f' }, 'hljs-meta-string': { color: '#50a14f' }, 'hljs-built_in': { color: '#c18401' }, 'hljs-class .hljs-title': { color: '#c18401' }, 'hljs-attr': { color: '#986801' }, 'hljs-variable': { color: '#986801' }, 'hljs-template-variable': { color: '#986801' }, 'hljs-type': { color: '#986801' }, 'hljs-selector-class': { color: '#986801' }, 'hljs-selector-attr': { color: '#986801' }, 'hljs-selector-pseudo': { color: '#986801' }, 'hljs-number': { color: '#986801' }, 'hljs-symbol': { color: '#4078f2' }, 'hljs-bullet': { color: '#4078f2' }, 'hljs-link': { color: '#4078f2' }, 'hljs-meta': { color: '#4078f2' }, 'hljs-selector-id': { color: '#4078f2' }, 'hljs-title': { color: '#4078f2' }
@@ -17,8 +17,11 @@ const IntroAnimation = () => {
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [showHeader, setShowHeader] = useState(false);
-
+  
+  // Hole Name und Titel aus den Übersetzungen
   const personName = t('person.name');
+  // ===== NEU: Hole den Titel aus den Übersetzungen =====
+  const titleOrProfession = t('person.titleOrProfession');
 
   const codeLines = [
     "import React, { useState, useEffect } from 'react';",
@@ -83,7 +86,8 @@ const IntroAnimation = () => {
       <div className="intro-top-section">
         <div className={`intro-header ${showHeader ? 'show' : ''}`}>
           <h1 className="intro-name">{personName}</h1>
-          <p className="intro-subtitle">Portfolio Loading...</p>
+          {/* ===== GEÄNDERT: Zeige den dynamischen Titel anstelle von "Portfolio Loading..." ===== */}
+          <p className="intro-subtitle">{titleOrProfession}</p>
         </div>
       </div>
 
