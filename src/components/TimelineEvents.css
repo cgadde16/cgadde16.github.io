@@ -11,7 +11,6 @@
   background-color: #fff;
   min-height: max(700px, 450px);
   height: max(700px, 450px);
-  background-color: purple; /* (zur Visualisierung) */
 }
 
 /* Linker Bereich für den Inhalt des Events */
@@ -25,7 +24,6 @@
   color: #000;
   overflow-y: auto;
   min-height: max(700px, 450px);
-  background-color: red; /* (zur Visualisierung) */
 }
 
 /* Die Karte, die Logo und Text enthält */
@@ -39,7 +37,6 @@
   padding: 2rem;
   border-radius: 12px;
   box-sizing: border-box;
-  background-color: blue; /* (zur Visualisierung) */
 }
 
 .event-logo-container {
@@ -51,7 +48,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: green; /* (zur Visualisierung) */
 }
 
 .event-logo {
