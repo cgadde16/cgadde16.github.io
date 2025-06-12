@@ -12,7 +12,7 @@ const modernLightTheme = {
 
 const IntroAnimation = () => {
   const { t } = useTranslation();
-  
+
   const [code, setCode] = useState('');
   const [isFadingOut, setIsFadingOut] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
@@ -21,7 +21,7 @@ const IntroAnimation = () => {
   const [isTextAnimating, setIsTextAnimating] = useState(true);
 
   const personName = t('person.name');
-  const finalTitle = "\u00A0";
+  const loadingBase = 'Profile Loading';
 
   const codeLines = [
     "import React, { useState, useEffect } from 'react';",
@@ -49,82 +49,89 @@ const IntroAnimation = () => {
   ];
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    setShowHeader(true);
+  document.body.style.overflow = 'hidden';
+  setShowHeader(true);
 
-    let textAnimationTimeout;
-    let codeTypingInterval;
+  let textTimeout;
+  let codeTypingInterval;
 
-    const codeTypingTimeout = setTimeout(() => {
-      let lineIndex = 0;
-      codeTypingInterval = setInterval(() => {
-        if (lineIndex < codeLines.length) {
-          setCode(prev => prev + codeLines[lineIndex] + '\n');
-          lineIndex++;
-        } else {
-          clearInterval(codeTypingInterval);
-        }
-      }, 20);
-    }, 100);
-
-    const TYPING_SPEED = 90;
-    const DELETING_SPEED = 50;
-    const PAUSE_DURATION = 600;
-
-    const typeText = (text, index, onComplete) => {
-      if (index <= text.length) {
-        setAnimatedSubtitle(text.substring(0, index));
-        textAnimationTimeout = setTimeout(() => typeText(text, index + 1, onComplete), TYPING_SPEED);
+  // Code schreiben
+  const codeTypingTimeout = setTimeout(() => {
+    let lineIndex = 0;
+    codeTypingInterval = setInterval(() => {
+      if (lineIndex < codeLines.length) {
+        setCode(prev => prev + codeLines[lineIndex] + '\n');
+        lineIndex++;
       } else {
-        onComplete();
+        clearInterval(codeTypingInterval);
       }
-    };
+    }, 20);
+  }, 100);
 
-    const deleteText = (index, onComplete) => {
-      if (index >= 0) {
-        setAnimatedSubtitle(prev => prev.substring(0, index));
-        textAnimationTimeout = setTimeout(() => deleteText(index - 1, onComplete), DELETING_SPEED);
-      } else {
-        onComplete();
-      }
-    };
+  // === Animationseinstellungen ===
+  const loadingText = 'Loading Profile';
+  const TYPING_SPEED = 20;     // Geschwindigkeit für Buchstaben
+  const DOT_SPEED = 400;       // Geschwindigkeit für Punkte
+  const DELETE_SPEED = 20;     // Geschwindigkeit für Löschen
+  const PAUSE_AFTER_DOTS = 200;
 
-    const loadingPhases = ["Profile Loading", "Profile Loading.", "Profile Loading..", "Profile Loading..."];
-    const STEP_DELAY = 400;
+  // --- Hilfsfunktionen ---
+  const typeText = (text, index, onComplete) => {
+    if (index <= text.length) {
+      setAnimatedSubtitle(text.substring(0, index));
+      textTimeout = setTimeout(() => typeText(text, index + 1, onComplete), TYPING_SPEED);
+    } else {
+      onComplete();
+    }
+  };
 
-    const animateLoadingSequence = (index = 0) => {
-      if (index < loadingPhases.length) {
-        setAnimatedSubtitle(loadingPhases[index]);
-        textAnimationTimeout = setTimeout(() => animateLoadingSequence(index + 1), STEP_DELAY);
-      } else {
-        textAnimationTimeout = setTimeout(() => {
-          deleteText(loadingPhases[loadingPhases.length - 1].length, () => {
-            typeText(finalTitle, 0, () => {
-              setIsTextAnimating(false);
-              textAnimationTimeout = setTimeout(() => {
-                setIsFadingOut(true);
-                setTimeout(() => {
-                  setIsVisible(false);
-                  document.body.style.overflow = 'auto';
-                }, 400);
-              }, 500);
-            });
-          });
-        }, PAUSE_DURATION);
-      }
-    };
+  const showDots = (count = 1) => {
+    if (count <= 3) {
+      setAnimatedSubtitle(`${loadingText}${'.'.repeat(count)}`);
+      textTimeout = setTimeout(() => showDots(count + 1), DOT_SPEED);
+    } else {
+      textTimeout = setTimeout(() => {
+        deleteText((loadingText.length + 3), () => {
+          setAnimatedSubtitle('');
+          setIsTextAnimating(false);
+          textTimeout = setTimeout(() => {
+            setIsFadingOut(true);
+            setTimeout(() => {
+              setIsVisible(false);
+              document.body.style.overflow = 'auto';
+            }, 400);
+          }, 500);
+        });
+      }, PAUSE_AFTER_DOTS);
+    }
+  };
 
-    textAnimationTimeout = setTimeout(() => {
-      animateLoadingSequence();
-    }, 500);
+  const deleteText = (index, onComplete) => {
+    if (index >= 0) {
+      setAnimatedSubtitle(prev => prev.substring(0, index));
+      textTimeout = setTimeout(() => deleteText(index - 1, onComplete), DELETE_SPEED);
+    } else {
+      onComplete();
+    }
+  };
 
-    return () => {
-      clearTimeout(codeTypingTimeout);
-      clearInterval(codeTypingInterval);
-      clearTimeout(textAnimationTimeout);
-      document.body.style.overflow = 'auto';
-    };
-  }, [finalTitle, personName]); // eslint-disable-line react-hooks/exhaustive-deps
+  // === Start der Animation ===
+  textTimeout = setTimeout(() => {
+    typeText(loadingText, 0, () => {
+    setTimeout(() => {
+    showDots();
+  }, DOT_SPEED); // ⬅ Verzögerung vor erstem Punkt (gleich wie für alle Punkte)
+});
+  }, 500);
+
+  return () => {
+    clearTimeout(codeTypingTimeout);
+    clearInterval(codeTypingInterval);
+    clearTimeout(textTimeout);
+    document.body.style.overflow = 'auto';
+  };
+}, [personName]);
+
 
   if (!isVisible) return null;
 
