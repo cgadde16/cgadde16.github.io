@@ -1,5 +1,3 @@
-// src/components/IntroAnimation.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import SyntaxHighlighter from 'react-syntax-highlighter';
@@ -10,7 +8,7 @@ const modernLightTheme = {
   'hljs-comment': { color: '#a0a1a7', fontStyle: 'italic' }, 'hljs-quote': { color: '#a0a1a7', fontStyle: 'italic' }, 'hljs-doctag': { color: '#a626a4' }, 'hljs-keyword': { color: '#a626a4' }, 'hljs-formula': { color: '#a626a4' }, 'hljs-section': { color: '#e45649' }, 'hljs-name': { color: '#e45649' }, 'hljs-selector-tag': { color: '#e45649' }, 'hljs-deletion': { color: '#e45649' }, 'hljs-subst': { color: '#e45649' }, 'hljs-literal': { color: '#0184bb' }, 'hljs-string': { color: '#50a14f' }, 'hljs-regexp': { color: '#50a14f' }, 'hljs-addition': { color: '#50a14f' }, 'hljs-attribute': { color: '#50a14f' }, 'hljs-meta-string': { color: '#50a14f' }, 'hljs-built_in': { color: '#c18401' }, 'hljs-class .hljs-title': { color: '#c18401' }, 'hljs-attr': { color: '#986801' }, 'hljs-variable': { color: '#986801' }, 'hljs-template-variable': { color: '#986801' }, 'hljs-type': { color: '#986801' }, 'hljs-selector-class': { color: '#986801' }, 'hljs-selector-attr': { color: '#986801' }, 'hljs-selector-pseudo': { color: '#986801' }, 'hljs-number': { color: '#986801' }, 'hljs-symbol': { color: '#4078f2' }, 'hljs-bullet': { color: '#4078f2' }, 'hljs-link': { color: '#4078f2' }, 'hljs-meta': { color: '#4078f2' }, 'hljs-selector-id': { color: '#4078f2' }, 'hljs-title': { color: '#4078f2' }
 };
 
-const IntroAnimation = () => {
+const IntroAnimation = ({ onFinish }) => {
   const { t } = useTranslation();
 
   const [code, setCode] = useState('');
@@ -21,7 +19,7 @@ const IntroAnimation = () => {
   const [isTextAnimating, setIsTextAnimating] = useState(true);
 
   const personName = t('person.name');
-  const loadingBase = 'Profile Loading';
+  const loadingText = 'Loading Profile';
 
   const codeLines = [
     "import React, { useState, useEffect } from 'react';",
@@ -49,89 +47,88 @@ const IntroAnimation = () => {
   ];
 
   useEffect(() => {
-  document.body.style.overflow = 'hidden';
-  setShowHeader(true);
+    document.body.style.overflow = 'hidden';
+    setShowHeader(true);
 
-  let textTimeout;
-  let codeTypingInterval;
+    let textTimeout;
+    let codeTypingInterval;
 
-  // Code schreiben
-  const codeTypingTimeout = setTimeout(() => {
-    let lineIndex = 0;
-    codeTypingInterval = setInterval(() => {
-      if (lineIndex < codeLines.length) {
-        setCode(prev => prev + codeLines[lineIndex] + '\n');
-        lineIndex++;
+    // Code schreiben
+    const codeTypingTimeout = setTimeout(() => {
+      let lineIndex = 0;
+      codeTypingInterval = setInterval(() => {
+        if (lineIndex < codeLines.length) {
+          setCode(prev => prev + codeLines[lineIndex] + '\n');
+          lineIndex++;
+        } else {
+          clearInterval(codeTypingInterval);
+        }
+      }, 20);
+    }, 100);
+
+    // === Animationseinstellungen ===
+    const TYPING_SPEED = 20;     // Geschwindigkeit für Buchstaben
+    const DOT_SPEED = 300;       // Geschwindigkeit für Punkte
+    const DELETE_SPEED = 20;     // Geschwindigkeit für Löschen
+    const PAUSE_AFTER_DOTS = 200;
+
+    // --- Hilfsfunktionen ---
+    const typeText = (text, index, onComplete) => {
+      if (index <= text.length) {
+        setAnimatedSubtitle(text.substring(0, index));
+        textTimeout = setTimeout(() => typeText(text, index + 1, onComplete), TYPING_SPEED);
       } else {
-        clearInterval(codeTypingInterval);
+        onComplete();
       }
-    }, 20);
-  }, 100);
+    };
 
-  // === Animationseinstellungen ===
-  const loadingText = 'Loading Profile';
-  const TYPING_SPEED = 20;     // Geschwindigkeit für Buchstaben
-  const DOT_SPEED = 400;       // Geschwindigkeit für Punkte
-  const DELETE_SPEED = 20;     // Geschwindigkeit für Löschen
-  const PAUSE_AFTER_DOTS = 200;
+    const showDots = (count = 1) => {
+      if (count <= 3) {
+        setAnimatedSubtitle(`${loadingText}${'.'.repeat(count)}`);
+        textTimeout = setTimeout(() => showDots(count + 1), DOT_SPEED);
+      } else {
+        textTimeout = setTimeout(() => {
+          deleteText((loadingText.length + 3), () => {
+            setAnimatedSubtitle('');
+            setIsTextAnimating(false);
+            textTimeout = setTimeout(() => {
+              setIsFadingOut(true);
+              if (onFinish) onFinish();  // Callback gleich beim Start des Fade-Outs auslösen
+              setTimeout(() => {
+                setIsVisible(false);
+                document.body.style.overflow = 'auto';
+              }, 400);
+            }, 500);
+          });
+        }, PAUSE_AFTER_DOTS);
+      }
+    };
 
-  // --- Hilfsfunktionen ---
-  const typeText = (text, index, onComplete) => {
-    if (index <= text.length) {
-      setAnimatedSubtitle(text.substring(0, index));
-      textTimeout = setTimeout(() => typeText(text, index + 1, onComplete), TYPING_SPEED);
-    } else {
-      onComplete();
-    }
-  };
+    const deleteText = (index, onComplete) => {
+      if (index >= 0) {
+        setAnimatedSubtitle(prev => prev.substring(0, index));
+        textTimeout = setTimeout(() => deleteText(index - 1, onComplete), DELETE_SPEED);
+      } else {
+        onComplete();
+      }
+    };
 
-  const showDots = (count = 1) => {
-    if (count <= 3) {
-      setAnimatedSubtitle(`${loadingText}${'.'.repeat(count)}`);
-      textTimeout = setTimeout(() => showDots(count + 1), DOT_SPEED);
-    } else {
-      textTimeout = setTimeout(() => {
-        deleteText((loadingText.length + 3), () => {
-          setAnimatedSubtitle('');
-          setIsTextAnimating(false);
-          textTimeout = setTimeout(() => {
-            setIsFadingOut(true);
-            setTimeout(() => {
-              setIsVisible(false);
-              document.body.style.overflow = 'auto';
-            }, 400);
-          }, 500);
-        });
-      }, PAUSE_AFTER_DOTS);
-    }
-  };
+    // === Start der Animation ===
+    textTimeout = setTimeout(() => {
+      typeText(loadingText, 0, () => {
+        setTimeout(() => {
+          showDots();
+        }, DOT_SPEED); // ⬅ Verzögerung vor erstem Punkt (gleich wie für alle Punkte)
+      });
+    }, 500);
 
-  const deleteText = (index, onComplete) => {
-    if (index >= 0) {
-      setAnimatedSubtitle(prev => prev.substring(0, index));
-      textTimeout = setTimeout(() => deleteText(index - 1, onComplete), DELETE_SPEED);
-    } else {
-      onComplete();
-    }
-  };
-
-  // === Start der Animation ===
-  textTimeout = setTimeout(() => {
-    typeText(loadingText, 0, () => {
-    setTimeout(() => {
-    showDots();
-  }, DOT_SPEED); // ⬅ Verzögerung vor erstem Punkt (gleich wie für alle Punkte)
-});
-  }, 500);
-
-  return () => {
-    clearTimeout(codeTypingTimeout);
-    clearInterval(codeTypingInterval);
-    clearTimeout(textTimeout);
-    document.body.style.overflow = 'auto';
-  };
-}, [personName]);
-
+    return () => {
+      clearTimeout(codeTypingTimeout);
+      clearInterval(codeTypingInterval);
+      clearTimeout(textTimeout);
+      document.body.style.overflow = 'auto';
+    };
+  }, [personName, onFinish]);
 
   if (!isVisible) return null;
 
