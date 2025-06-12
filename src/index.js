@@ -9,9 +9,21 @@ import './i18n'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Suspense fallback={<div>Lädt Inhalte...</div>}> {/* Ladeanzeige */}
-      <App />
-    </Suspense>
+    <Suspense fallback={
+  <div style={{
+    height: '100vh',
+    width: '100vw',
+    background: 'linear-gradient(120deg, #ffffff 0%, #e3effb 50%, #a6c8f5 100%)', // z.B. dein gewünschter BG-Gradient
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: '1.5rem',
+    color: '#555',
+  }}>
+  </div>
+}>
+  <App />
+</Suspense>
   </React.StrictMode>
 );
 

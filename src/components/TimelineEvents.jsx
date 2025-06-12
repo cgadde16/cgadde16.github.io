@@ -12,9 +12,6 @@ const eventLogos = [
 
 const SLOT_ITEM_HEIGHT = 100;
 const SCROLL_RELEASE_COOLDOWN = 300;
-const MIN_VISIBLE_ITEMS = 7;
-const MIN_VISIBLE_ITEMS_MOBILE = 5;
-const MIN_EVENT_CARD_HEIGHT = 450;
 
 function TimelineEvents() {
   const { t } = useTranslation();
@@ -25,6 +22,7 @@ function TimelineEvents() {
       return {
         id,
         title: t(`timeline.events.event${id}.title`),
+        subtitle: t(`timeline.events.event${id}.subtitle`),
         sidebarTitle: t(`timeline.events.event${id}.sidebarTitle`) || t(`timeline.events.event${id}.title`),
         content: t(`timeline.events.event${id}.content`),
         date: t(`timeline.events.event${id}.date`),
@@ -259,6 +257,7 @@ function TimelineEvents() {
             {/* MODIFIZIERT: ref zum Text-Container hinzugefügt */}
             <div ref={textContentRef} className="event-text-content">
               <h2>{currentEventData.title}</h2>
+              <h3>{currentEventData.subtitle}</h3>
               <p className="event-date">{currentEventData.date}</p>
               <p>{currentEventData.content}</p>
             </div>

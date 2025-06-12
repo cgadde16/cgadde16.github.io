@@ -53,7 +53,6 @@ const IntroAnimation = ({ onFinish }) => {
     let textTimeout;
     let codeTypingInterval;
 
-    // Code schreiben
     const codeTypingTimeout = setTimeout(() => {
       let lineIndex = 0;
       codeTypingInterval = setInterval(() => {
@@ -66,13 +65,11 @@ const IntroAnimation = ({ onFinish }) => {
       }, 20);
     }, 100);
 
-    // === Animationseinstellungen ===
-    const TYPING_SPEED = 20;     // Geschwindigkeit für Buchstaben
-    const DOT_SPEED = 300;       // Geschwindigkeit für Punkte
-    const DELETE_SPEED = 20;     // Geschwindigkeit für Löschen
+    const TYPING_SPEED = 20;
+    const DOT_SPEED = 300;
+    const DELETE_SPEED = 20;
     const PAUSE_AFTER_DOTS = 200;
 
-    // --- Hilfsfunktionen ---
     const typeText = (text, index, onComplete) => {
       if (index <= text.length) {
         setAnimatedSubtitle(text.substring(0, index));
@@ -93,7 +90,7 @@ const IntroAnimation = ({ onFinish }) => {
             setIsTextAnimating(false);
             textTimeout = setTimeout(() => {
               setIsFadingOut(true);
-              if (onFinish) onFinish();  // Callback gleich beim Start des Fade-Outs auslösen
+              if (onFinish) onFinish();
               setTimeout(() => {
                 setIsVisible(false);
                 document.body.style.overflow = 'auto';
@@ -113,12 +110,11 @@ const IntroAnimation = ({ onFinish }) => {
       }
     };
 
-    // === Start der Animation ===
     textTimeout = setTimeout(() => {
       typeText(loadingText, 0, () => {
         setTimeout(() => {
           showDots();
-        }, DOT_SPEED); // ⬅ Verzögerung vor erstem Punkt (gleich wie für alle Punkte)
+        }, DOT_SPEED);
       });
     }, 500);
 
@@ -143,6 +139,7 @@ const IntroAnimation = ({ onFinish }) => {
         </div>
       </div>
 
+      {/* 
       <div className="intro-bottom-section">
         <div className="intro-code-container">
           <SyntaxHighlighter
@@ -178,6 +175,7 @@ const IntroAnimation = ({ onFinish }) => {
           </div>
         </div>
       </div>
+      */}
     </div>
   );
 };
