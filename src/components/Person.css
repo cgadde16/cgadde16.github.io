@@ -1,4 +1,4 @@
-/* ===== HERO-BEREICH STILE ===== */
+/* ===== HERO-BEREICH STILE (unverändert) ===== */
 .person-hero-section {
   background-image: url('../../public/images/profile.PNG');
   background-size: cover;
@@ -11,7 +11,6 @@
   position: relative; 
 }
 
-/* NEU: Stile für den Language Switcher Container (unverändert) */
 .language-switcher-container {
   position: absolute;
   top: 1.5rem;
@@ -19,21 +18,14 @@
   z-index: 10;
 }
 
-/* ====================================================================== */
-/* ===== HIER IST DIE ENTSCHEIDENDE ÄNDERUNG ===== */
-/* ====================================================================== */
 .person-hero-text {
-  /* GEÄNDERT: Textausrichtung von 'right' auf 'left' */
   text-align: left; 
-  
-  /* NEU: Wenden Sie die gleichen Layout-Regeln an wie bei .person-content-section,
-     damit die linke Kante perfekt übereinstimmt. */
-  width: 100%;             /* Nimmt die volle Breite des Flex-Containers ein */
-  max-width: 750px;        /* Aber nur bis zu dieser maximalen Breite */
-  margin-left: auto;       /* Zentriert den Block horizontal */
-  margin-right: auto;      /* Zentriert den Block horizontal */
-  padding: 0 2rem;         /* Gleicher seitlicher Abstand wie der Inhalt unten */
-  box-sizing: border-box;  /* Wichtig, damit padding die Breite nicht sprengt */
+  width: 100%;
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
 }
 
 .person-hero-text h1 {
@@ -55,12 +47,23 @@
 }
 
 
-/* ===== INHALTSBEREICH STILE (unverändert) ===== */
+/* ===== INHALTSBEREICH STILE (mit Animations-Änderungen) ===== */
 .person-content-section {
   max-width: 750px;
   margin: 4rem auto 0 auto;
   padding: 0 2rem;
   line-height: 1.7;
+
+  /* NEU: Animations-Ausgangszustand für den Inhaltsbereich */
+  opacity: 0;
+  transform: translateY(20px); /* Startet 20px weiter unten */
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* NEU: Klasse für den sichtbaren Zustand, die die Animation auslöst */
+.person-content-section.is-visible {
+  opacity: 1;
+  transform: translateY(0); /* Bewegt sich an die finale Position (y=0) */
 }
 
 .person-bio {
@@ -102,7 +105,7 @@
 }
 
 
-/* ===== RESPONSIVE ANPASSUNGEN ===== */
+/* ===== RESPONSIVE ANPASSUNGEN (unverändert) ===== */
 @media (max-width: 768px) {
   .person-hero-section {
     height: 45vh;
@@ -113,7 +116,6 @@
     right: 1rem;
   }
   
-  /* NEU: Wir passen auch hier das Padding an, damit es mit dem Inhalt unten übereinstimmt */
   .person-hero-text {
     padding: 0 1rem;
   }
@@ -124,14 +126,6 @@
 
   .person-hero-subtitle {
     font-size: 1.2rem;
-  }
-  
-  /* GEÄNDERT: Diese Regel, die den Text zentriert hat, wird entfernt. */
-  /* Er bleibt jetzt immer linksbündig. */
-  @media (max-width: 480px) {
-    /* .person-hero-text {
-      text-align: center;
-    } */
   }
 
   .person-content-section {

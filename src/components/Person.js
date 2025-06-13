@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; // useRef wird nicht mehr benötigt
 import { useTranslation } from 'react-i18next';
 import './Person.css';
 import { CiMail, CiLocationOn } from "react-icons/ci";
@@ -13,11 +13,16 @@ function Person({ startTyping }) {
   const email = t('person.email');
   const bioShort = t('person.bioShort');
 
+  // State für die Tipp-Animation
   const [animatedTitle, setAnimatedTitle] = useState('');
   const [started, setStarted] = useState(false);
+  
+  // State für die Inhalts-Animation
+  const [contentIsVisible, setContentIsVisible] = useState(false);
 
   const TYPING_SPEED = 40;
 
+  // Dieser useEffect steuert jetzt BEIDE Animationen nacheinander
   useEffect(() => {
     if (startTyping && !started) {
       setStarted(true);
@@ -25,15 +30,21 @@ function Person({ startTyping }) {
 
       const type = () => {
         if (index <= fullTitle.length) {
+          // Tipp-Animation läuft...
           setAnimatedTitle(fullTitle.substring(0, index));
           index++;
           setTimeout(type, TYPING_SPEED);
+        } else {
+          // Tipp-Animation ist FERTIG!
+          // Jetzt wird die zweite Animation für den Inhalt ausgelöst.
+          setContentIsVisible(true);
         }
       };
-
+      
       type();
     }
   }, [startTyping, started, fullTitle]);
+
 
   return (
     <div className="person-page-container">
@@ -48,7 +59,10 @@ function Person({ startTyping }) {
         </div>
       </header>
 
-      <main className="person-content-section">
+      {/* Die dynamische Klasse wird ausgelöst, wenn contentIsVisible true wird */}
+      <main 
+        className={`person-content-section ${contentIsVisible ? 'is-visible' : ''}`}
+      >
         <p className="person-bio">{bioShort}</p>
 
         <div className="person-contact-info">
