@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // useRef wird nicht mehr benötigt
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './Person.css';
 import { CiMail, CiLocationOn } from "react-icons/ci";
@@ -13,42 +13,57 @@ function Person({ startTyping }) {
   const email = t('person.email');
   const bioShort = t('person.bioShort');
 
-  // State für die Tipp-Animation
   const [animatedTitle, setAnimatedTitle] = useState('');
   const [started, setStarted] = useState(false);
   
-  // State für die Inhalts-Animation
+  // GEÄNDERT: Wir brauchen jetzt zwei getrennte States für die beiden Animationen.
+  const [backgroundIsVisible, setBackgroundIsVisible] = useState(false);
   const [contentIsVisible, setContentIsVisible] = useState(false);
 
   const TYPING_SPEED = 40;
 
-  // Dieser useEffect steuert jetzt BEIDE Animationen nacheinander
   useEffect(() => {
-    if (startTyping && !started) {
+    // Dieser Effekt steuert jetzt alle drei sequenziellen Animationen.
+    if (startTyping && !started && fullTitle.length > 0) {
       setStarted(true);
       let index = 0;
 
+      // NEU: Zwei separate Trigger-Punkte definieren.
+      // Der Hintergrund soll früh starten (z.B. bei 30% des Titels).
+      const backgroundTriggerIndex = Math.floor(fullTitle.length * 0.01);
+      // Der Inhalt soll später starten (z.B. bei 70% des Titels).
+      const contentTriggerIndex = Math.floor(fullTitle.length * 0.7);
+
       const type = () => {
         if (index <= fullTitle.length) {
-          // Tipp-Animation läuft...
+          // 1. Trigger-Punkt für den HINTERGRUND
+          if (index === backgroundTriggerIndex) {
+            setBackgroundIsVisible(true);
+          }
+
+          // 2. Trigger-Punkt für den INHALT
+          if (index === contentTriggerIndex) {
+            setContentIsVisible(true);
+          }
+          
+          // Die Tipp-Animation läuft weiter wie bisher
           setAnimatedTitle(fullTitle.substring(0, index));
           index++;
           setTimeout(type, TYPING_SPEED);
-        } else {
-          // Tipp-Animation ist FERTIG!
-          // Jetzt wird die zweite Animation für den Inhalt ausgelöst.
-          setContentIsVisible(true);
         }
       };
       
       type();
     }
+    // Wichtig: 'fullTitle' zur Abhängigkeitsliste hinzufügen, damit die Indizes neu berechnet werden,
+    // wenn sich die Sprache und damit der Titel ändert.
   }, [startTyping, started, fullTitle]);
 
 
   return (
     <div className="person-page-container">
-      <header className="person-hero-section">
+      {/* GEÄNDERT: Gesteuert durch 'backgroundIsVisible' */}
+      <header className={`person-hero-section ${backgroundIsVisible ? 'is-visible' : ''}`}>
         <div className="language-switcher-container">
           <LanguageSwitcherIcon />
         </div>
@@ -59,7 +74,7 @@ function Person({ startTyping }) {
         </div>
       </header>
 
-      {/* Die dynamische Klasse wird ausgelöst, wenn contentIsVisible true wird */}
+      {/* GEÄNDERT: Gesteuert durch 'contentIsVisible' */}
       <main 
         className={`person-content-section ${contentIsVisible ? 'is-visible' : ''}`}
       >
