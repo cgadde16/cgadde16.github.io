@@ -1,0 +1,139 @@
+{
+  "pageTitle": "Meine Webseite",
+  "extraSpaceText": "Extra Platz ganz unten.",
+  "welcomeMessage": "Willkommen auf meiner Webseite!",
+  "aboutLinkText": "Projekte",
+  "switchToEnglish": "Switch to English",
+  "currentLanguageLabel": "Aktuelle Sprache",
+
+  "projectsHeadline": "Projekte",
+  "showLessButton": "Weniger anzeigen",
+  "showAllButton": "Alle {{count}} Projekte anzeigen",
+
+  "projectsData": {
+    "proj1": {
+      "title": "Bachelorarbeit",
+      "description": "Entwicklung eines Systems zur automatischen Klassifizierung von Bildern mittels Deep Learning.",
+      "category": "Forschung",
+      "longDescription": "Der Relaunch der E-Commerce Plattform beinhaltete eine vollständige Überarbeitung des Frontends mit React und Next.js für verbesserte Performance und SEO, sowie die Migration des Backends auf eine Microservice-Architektur. Besondere Herausforderungen waren die Datenmigration und die nahtlose Integration neuer Zahlungsanbieter."
+    },
+    "proj2": {
+      "title": "Automatisches Sammeln maliziöser Softwarepakete",
+      "description": "Entwicklung eines Systems zur automatischen Sammlung maliziöser Softwarepakete verschiedener Registries",
+      "category": "Webentwicklung",
+      "longDescription": "Der Relaunch der E-Commerce Plattform beinhaltete eine vollständige Überarbeitung des Frontends mit React und Next.js für verbesserte Performance und SEO, sowie die Migration des Backends auf eine Microservice-Architektur. Besondere Herausforderungen waren die Datenmigration und die nahtlose Integration neuer Zahlungsanbieter."
+    },
+    "proj3": {
+      "title": "G24e Aero Design",
+      "description": "Entwurf und Fertigung des Heckflügels des Formula Student Rennautos der HBRS",
+      "category": "CAD",
+      "longDescription": "Der Relaunch der E-Commerce Plattform beinhaltete eine vollständige Überarbeitung des Frontends mit React und Next.js für verbesserte Performance und SEO, sowie die Migration des Backends auf eine Microservice-Architektur. Besondere Herausforderungen waren die Datenmigration und die nahtlose Integration neuer Zahlungsanbieter."
+    },
+    "proj4": {
+      "title": "cgadde16.github.io",
+      "description": "Diese Website wurde mithilfe von React erstellt",
+      "category": "Webentwicklung",
+      "longDescription": "Der Relaunch der E-Commerce Plattform beinhaltete eine vollständige Überarbeitung des Frontends mit React und Next.js für verbesserte Performance und SEO, sowie die Migration des Backends auf eine Microservice-Architektur. Besondere Herausforderungen waren die Datenmigration und die nahtlose Integration neuer Zahlungsanbieter."
+    },
+    "proj5": {
+      "title": "GYPT",
+      "description": "Forschung und Entwicklung innovativer Lösungen für erneuerbare Energien.",
+      "category": "Forschung",
+      "longDescription": "Der Relaunch der E-Commerce Plattform beinhaltete eine vollständige Überarbeitung des Frontends mit React und Next.js für verbesserte Performance und SEO, sowie die Migration des Backends auf eine Microservice-Architektur. Besondere Herausforderungen waren die Datenmigration und die nahtlose Integration neuer Zahlungsanbieter."
+    },
+    "proj6": {
+      "title": "Jugend forscht",
+      "description": "Aufbau einer Online-Plattform zum Austausch für eine spezifische Interessengruppe.",
+      "category": "Webentwicklung",
+      "longDescription": "Der Relaunch der E-Commerce Plattform beinhaltete eine vollständige Überarbeitung des Frontends mit React und Next.js für verbesserte Performance und SEO, sowie die Migration des Backends auf eine Microservice-Architektur. Besondere Herausforderungen waren die Datenmigration und die nahtlose Integration neuer Zahlungsanbieter."
+    },
+    "proj7": {
+      "title": "proj7",
+      "description": "Aufbau einer Online-Plattform zum Austausch für eine spezifische Interessengruppe.",
+      "category": "Webentwicklung",
+      "longDescription": "Der Relaunch der E-Commerce Plattform beinhaltete eine vollständige Überarbeitung des Frontends mit React und Next.js für verbesserte Performance und SEO, sowie die Migration des Backends auf eine Microservice-Architektur. Besondere Herausforderungen waren die Datenmigration und die nahtlose Integration neuer Zahlungsanbieter."
+    }
+  },
+
+  "projectCard": {
+    "noImageFallback": "Kein Bild",
+    "learnMoreButton": "Mehr erfahren",
+    "defaultAltText": "Projektbild"
+  },
+
+  "timeline": {
+    "title": "Lebenslauf",
+    "noEvents": "Keine Events vorhanden.",
+    "events": {
+      "event1": {
+        "title": "Bachelor of Science - Cyber Security",
+        "subtitle": "asd",
+        "sidebarTitle": "Studium",
+        "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+        "date": "10/2022 - heute"
+      },
+      "event2": {
+        "title": "Werkstudent beim FKIE",
+        "subtitle": "Cyber Analysis & Defense",
+        "sidebarTitle": "Arbeit",
+        "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+        "date": "07/2025 - heute"
+      },
+      "event3": {
+        "title": "Prakikum beim Bundesamt für Sicherheit in der Informationstechnik",
+        "subtitle": "MIRT",
+        "sidebarTitle": "Praktikum",
+        "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+        "date": "09/2025 - 10/2025"
+      },
+      "event4": {
+        "title": "Allgemeinte Hochschulreife",
+        "subtitle": "Note 1,3",
+        "sidebarTitle": "Schule",
+        "content": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+        "date": "09/2013 - 07/2021"
+      }
+    }
+  },
+  "footer": {
+    "copyrightText": "2025 - Carl Gadde"
+  },
+  "skills": {
+    "softwareHeadline": "Softwarekenntnisse",
+    "languageHeadline": "Sprachkenntnisse",
+    "hobbiesHeadline": "Hobbies & Interessen",
+     "softwareSkills": [
+      { "name": "Autopsy", "icon": "IoMdFingerPrint" },
+      { "name": "Siemens NX", "icon": "RiBox3Fill" },
+      { "name": "LaTeX", "icon": "CiTextAlignCenter" },
+      { "name": "Git", "icon": "FaGithub" },
+      { "name": "MS Office", "icon": "SiLibreofficedraw" },
+      { "name": "React", "icon": "FaReact" }
+    ],
+    "languageSkills": [
+      { "language": "Deutsch", "level": "Muttersprache", "proficiency": 100 },
+      { "language": "Englisch", "level": "Fließend (C1)", "proficiency": 90 },
+      { "language": "Französisch", "level": "Gute Kenntnisse", "proficiency": 55 },
+      { "language": "Italienisch", "level": "Grundlagen", "proficiency": 40 }
+    ],
+    "hobbiesList": [
+      { "name": "Fotografie", "icon": "FaCamera" },
+      { "name": "Wandern", "icon": "FaHiking" },
+      { "name": "Kochen", "icon": "FaUtensils" },
+      { "name": "Videospiele", "icon": "FaGamepad" },
+      { "name": "Lesen", "icon": "FaBookOpen" }
+    ],
+    "noSoftwareSkills": "Derzeit keine spezifischen Softwarekenntnisse aufgeführt.",
+    "noLanguageSkills": "Derzeit keine spezifischen Sprachkenntnisse aufgeführt.",
+    "noHobbies": "Derzeit keine spezifischen Hobbies aufgeführt." 
+  },
+
+  "person": {
+    "name": "Carl Gadde",
+    "titleOrProfession": "Student für Cyber Security",
+    "location": "Bonn, Deutschland",
+    "email": "cgadde16@gmail.com",
+    "bioShort": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+    "profileImageAlt": "Profilbild von Vorname Nachname"
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "pageTitle": "My Website",
+  "extraSpaceText": "Extra space at the bottom.",
+  "welcomeMessage": "Welcome to my website!",
+  "aboutLinkText": "Projects",
+  "switchToGerman": "Auf Deutsch wechseln",
+  "currentLanguageLabel": "Current language",
+
+  "projectsHeadline": "Projects",
+  "showLessButton": "Show less",
+  "showAllButton": "Show all {{count}} projects",
+
+  "projectsData": {
+    "proj1": {
+      "title": "AI-Powered Image Recognition",
+      "description": "Development of a system for automatic image classification using deep learning.",
+      "category": "Research",
+      "longDescription": "The e-commerce platform relaunch included a complete frontend overhaul using React and Next.js for improved performance and SEO, as well as migrating the backend to a microservice architecture. Key challenges were data migration and seamless integration of new payment providers."
+    },
+    "proj2": {
+      "title": "E-Commerce Platform Relaunch",
+      "description": "Redesign and technical overhaul of an existing online shopping platform.",
+      "category": "Web Development",
+      "longDescription": "The e-commerce platform relaunch included a complete frontend overhaul using React and Next.js for improved performance and SEO, as well as migrating the backend to a microservice architecture. Key challenges were data migration and seamless integration of new payment providers."
+    },
+    "proj3": {
+      "title": "Mobile App for Event Management",
+      "description": "An app for planning, organizing, and executing events.",
+      "category": "Mobile",
+      "longDescription": "The e-commerce platform relaunch included a complete frontend overhaul using React and Next.js for improved performance and SEO, as well as migrating the backend to a microservice architecture. Key challenges were data migration and seamless integration of new payment providers."
+    },
+    "proj4": {
+      "title": "Data Analysis Dashboard",
+      "description": "Interactive dashboard for visualizing and analyzing company data.",
+      "category": "Business Intelligence",
+      "longDescription": "The e-commerce platform relaunch included a complete frontend overhaul using React and Next.js for improved performance and SEO, as well as migrating the backend to a microservice architecture. Key challenges were data migration and seamless integration of new payment providers."
+    },
+    "proj5": {
+      "title": "Sustainable Energy Concepts",
+      "description": "Research and development of innovative solutions for renewable energies.",
+      "category": "Research",
+      "longDescription": "The e-commerce platform relaunch included a complete frontend overhaul using React and Next.js for improved performance and SEO, as well as migrating the backend to a microservice architecture. Key challenges were data migration and seamless integration of new payment providers."
+    },
+    "proj6": {
+      "title": "Community Platform",
+      "description": "Building an online platform for exchange within a specific interest group.",
+      "category": "Web Development",
+      "longDescription": "The e-commerce platform relaunch included a complete frontend overhaul using React and Next.js for improved performance and SEO, as well as migrating the backend to a microservice architecture. Key challenges were data migration and seamless integration of new payment providers."
+    }
+  },
+
+  "projectCard": {
+    "noImageFallback": "No Image",
+    "learnMoreButton": "Learn More",
+    "defaultAltText": "Project image"
+  },
+
+  "timeline": {
+    "noEvents": "No events available.",
+    "title": "Resume",
+    "events": {
+      "event1": {
+        "title": "Primary School",
+        "sidebarTitle": "Primary School",
+        "content": "Discovery of new landscapes."
+      },
+      "event2": {
+        "title": "High School Diploma",
+        "sidebarTitle": "High School",
+        "content": "Technological innovation."
+      },
+      "event3": {
+        "title": "Bartender, Zum Wilden Mann",
+        "sidebarTitle": "Bartender",
+        "content": "Major milestone."
+      },
+      "event4": {
+        "title": "Event Delta",
+        "sidebarTitle": "Event Delta",
+        "content": "Overcoming a challenge."
+      },
+      "event5": {
+        "title": "Event Epsilon (Last of the original)",
+        "sidebarTitle": "Event Epsilon",
+        "content": "Project completion."
+      },
+      "event6": {
+        "title": "Event Zeta (Start of Phase Two)",
+        "sidebarTitle": "Event Zeta",
+        "content": "Beginning of further development based on results."
+      },
+      "event7": {
+        "title": "Event Eta (Resource Allocation)",
+        "sidebarTitle": "Event Eta",
+        "content": "Allocation of resources and personnel for the next stage."
+      },
+      "event8": {
+        "title": "Event Theta (First Test Run)",
+        "sidebarTitle": "Event Theta",
+        "content": "Conducting an initial prototype test."
+      },
+      "event9": {
+        "title": "Event Iota (Unexpected Complication)",
+        "sidebarTitle": "Event Iota",
+        "content": "A new problem requires immediate attention."
+      },
+      "event10": {
+        "title": "Event Kappa (Solution Development)",
+        "sidebarTitle": "Event Kappa",
+        "content": "Developing and implementing a solution for the complication."
+      },
+      "event11": {
+        "title": "Event Lambda (Market Analysis)",
+        "sidebarTitle": "Event Lambda",
+        "content": "Analysis of the current market and competition."
+      },
+      "event12": {
+        "title": "Event My (Strategy Adjustment)",
+        "sidebarTitle": "Event My",
+        "content": "Adjusting the strategy based on new insights."
+      },
+      "event13": {
+        "title": "Event Ny (Key Partnership)",
+        "sidebarTitle": "Event Ny",
+        "content": "Formation of a strategic partnership."
+      },
+      "event14": {
+        "title": "Event Xi (Team Expansion)",
+        "sidebarTitle": "Event Xi",
+        "content": "New talents join the project."
+      },
+      "event15": {
+        "title": "Event Omicron (Final Presentation & Outlook)",
+        "sidebarTitle": "Event Omicron",
+        "content": "Presentation of final results and future plans."
+      }
+    }
+  },
+  "footer": {
+    "copyrightText": "2025 - Name"
+  },
+  "skills": {
+    "softwareHeadline": "Software Skills",
+    "languageHeadline": "Language Skills",
+    "hobbiesHeadline": "Hobbies & Interests", 
+    "softwareSkills": [
+      "JavaScript (ES6+)",
+      "React & Redux",
+      "Node.js & Express",
+      "HTML5 & CSS3",
+      "Git & GitHub",
+      "REST APIs",
+      "Databases (SQL, MongoDB)"
+    ],
+    "languageSkills": [
+      { "language": "German", "level": "a", "proficiency": 100 },
+      { "language": "English", "level": "b", "proficiency": 90 },
+      { "language": "French", "level": "c", "proficiency": 75 },
+      { "language": "Spanish", "level": "d", "proficiency": 40 }
+    ],
+    "hobbiesList": [ 
+      "Photography",
+      "Hiking & Nature",
+      "Reading (Fantasy & Sci-Fi)",
+      "Cooking new recipes",
+      "Strategy Games (Board & Video)"
+    ],
+    "noSoftwareSkills": "No specific software skills listed at the moment.",
+    "noLanguageSkills": "No specific language skills listed at the moment.",
+    "noHobbies": "No specific hobbies listed at the moment." 
+  },"person": {
+    "name": "Name",
+    "titleOrProfession": "Software Developer & Web Designer",
+    "location": "Berlin, Germany",
+    "email": "your.email@example.com",
+    "bioShort": "Enthusiastic developer with a passion for clean code and intuitive user experiences. Specialized in frontend technologies and always open to new challenges.",
+    "profileImageAlt": "Profile picture of Name"
+}
+}
