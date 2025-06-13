@@ -1,4 +1,3 @@
-// src/components/TimelineEvents.jsx
 import React, { useState, useRef, useEffect, useCallback, useMemo, useLayoutEffect } from 'react';
 import './TimelineEvents.css';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +12,8 @@ const eventLogos = [
 const SLOT_ITEM_HEIGHT = 100;
 const SCROLL_RELEASE_COOLDOWN = 300;
 
-function TimelineEvents() {
+// NEU: startAnimation als Prop hinzugefügt
+function TimelineEvents({ startAnimation }) {
   const { t } = useTranslation();
 
   const initialEvents = useMemo(() => (
@@ -34,23 +34,23 @@ function TimelineEvents() {
   const [currentEventIndex, setCurrentEventIndex] = useState(0);
   const [calculatedFontSize, setCalculatedFontSize] = useState('2.5em');
   const [sidebarReady, setSidebarReady] = useState(false);
+  
+  // GELÖSCHT: Der interne State und der useEffect für die Animation werden nicht mehr benötigt.
+  // const [startAnimation, setStartAnimation] = useState(false);
+  // useEffect(() => { ... });
 
   const contentWrapperRef = useRef(null);
   const sidebarRef = useRef(null);
   const testElementRef = useRef(null);
   const lastBlockedScrollTimeRef = useRef(0);
   const atTimelineEdgeRef = useRef(false);
-
-  // --- NEU: Refs für die dynamische Layout-Anpassung ---
   const logoContainerRef = useRef(null);
   const textContentRef = useRef(null);
 
-  // --- NEU: useLayoutEffect, um den Textabstand dynamisch anzupassen ---
   useLayoutEffect(() => {
     const logoEl = logoContainerRef.current;
     const textEl = textContentRef.current;
     
-    // Verhindert Ausführung auf Mobile, da dort ein anderes Layout gilt
     if (window.innerWidth <= 768) {
       if (textEl) textEl.style.marginRight = '0';
       return;
@@ -58,7 +58,7 @@ function TimelineEvents() {
 
     if (logoEl && textEl) {
       const logoWidth = logoEl.offsetWidth;
-      const gap = 32; // 2rem Puffer
+      const gap = 32;
       textEl.style.marginRight = `${logoWidth + gap}px`;
     }
 
@@ -67,12 +67,9 @@ function TimelineEvents() {
         textEl.style.marginRight = '0';
       }
     };
-  }, [currentEventIndex, initialEvents]); // Läuft bei Event-Wechsel
+  }, [currentEventIndex, initialEvents]);
 
-
-  // --- Alle anderen Hooks und Funktionen bleiben unverändert ---
-  // (Hier folgt Ihr bestehender Code für calculateOptimalFontSize, handleWheel etc.)
-
+  // Alle anderen Hooks (calculateOptimalFontSize, handleWheel etc.) bleiben unverändert...
   const calculateOptimalFontSize = useCallback(() => {
     if (!sidebarRef.current || !initialEvents || initialEvents.length === 0) {
         setCalculatedFontSize('2.5em'); 
@@ -233,6 +230,8 @@ function TimelineEvents() {
       setCurrentEventIndex(0);
     }
   }, [initialEvents]);
+  
+  // ...
 
   if (!initialEvents || initialEvents.length === 0) {
     return <div className="timeline-container" style={{justifyContent: 'center', alignItems: 'center', color: 'white'}}><p>{t('timeline.noEvents')}</p></div>;
@@ -243,10 +242,10 @@ function TimelineEvents() {
 
   return (
     <div className="timeline-container" ref={contentWrapperRef}>
-      <div className="event-content-area">
+      {/* GEÄNDERT: Die Klasse wird jetzt durch die Prop 'startAnimation' gesteuert */}
+      <div className={`event-content-area ${startAnimation ? 'animate-in' : ''}`}>
         {currentEventData && (
           <div className="event-card active-event-card">
-            {/* MODIFIZIERT: ref zum Logo-Container hinzugefügt */}
             <div ref={logoContainerRef} className="event-logo-container">
               <img 
                 src={process.env.PUBLIC_URL + currentEventData.logoUrl} 
@@ -254,7 +253,6 @@ function TimelineEvents() {
                 className="event-logo"
               />
             </div>
-            {/* MODIFIZIERT: ref zum Text-Container hinzugefügt */}
             <div ref={textContentRef} className="event-text-content">
               <h2>{currentEventData.title}</h2>
               <h3>{currentEventData.subtitle}</h3>
@@ -265,7 +263,12 @@ function TimelineEvents() {
         )}
       </div>
 
-      <div className="titles-sidebar" ref={sidebarRef} style={dynamicSidebarStyle}>
+      {/* GEÄNDERT: Die Klasse wird jetzt durch die Prop 'startAnimation' gesteuert */}
+      <div 
+        className={`titles-sidebar ${startAnimation ? 'animate-in' : ''}`} 
+        ref={sidebarRef} 
+        style={dynamicSidebarStyle}
+      >
         <div className="titles-list-wrapper">
           <div
             className="slot-list"

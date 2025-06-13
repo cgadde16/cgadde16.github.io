@@ -4,7 +4,8 @@ import './Person.css';
 import { CiMail, CiLocationOn } from "react-icons/ci";
 import LanguageSwitcherIcon from './LanguageSwitcherIcon';
 
-function Person({ startTyping }) {
+// NEU: onAnimationComplete als Prop hinzugefügt
+function Person({ startTyping, onAnimationComplete }) {
   const { t } = useTranslation();
 
   const name = t('person.name');
@@ -16,37 +17,38 @@ function Person({ startTyping }) {
   const [animatedTitle, setAnimatedTitle] = useState('');
   const [started, setStarted] = useState(false);
   
-  // GEÄNDERT: Wir brauchen jetzt zwei getrennte States für die beiden Animationen.
   const [backgroundIsVisible, setBackgroundIsVisible] = useState(false);
   const [contentIsVisible, setContentIsVisible] = useState(false);
 
   const TYPING_SPEED = 40;
 
   useEffect(() => {
-    // Dieser Effekt steuert jetzt alle drei sequenziellen Animationen.
     if (startTyping && !started && fullTitle.length > 0) {
       setStarted(true);
       let index = 0;
 
-      // NEU: Zwei separate Trigger-Punkte definieren.
-      // Der Hintergrund soll früh starten (z.B. bei 30% des Titels).
       const backgroundTriggerIndex = Math.floor(fullTitle.length * 0.01);
-      // Der Inhalt soll später starten (z.B. bei 70% des Titels).
       const contentTriggerIndex = Math.floor(fullTitle.length * 0.7);
 
       const type = () => {
         if (index <= fullTitle.length) {
-          // 1. Trigger-Punkt für den HINTERGRUND
           if (index === backgroundTriggerIndex) {
             setBackgroundIsVisible(true);
           }
 
-          // 2. Trigger-Punkt für den INHALT
           if (index === contentTriggerIndex) {
             setContentIsVisible(true);
+
+            // NEU: Nachdem die letzte Animation (content) getriggert wurde,
+            // warten wir ihre Dauer ab und rufen dann die Callback-Funktion auf.
+            // Die Animationsdauer in Person.css ist 0.6s, also 600ms.
+            setTimeout(() => {
+              if (onAnimationComplete) {
+                onAnimationComplete();
+              }
+            }, 600); 
           }
           
-          // Die Tipp-Animation läuft weiter wie bisher
           setAnimatedTitle(fullTitle.substring(0, index));
           index++;
           setTimeout(type, TYPING_SPEED);
@@ -55,14 +57,11 @@ function Person({ startTyping }) {
       
       type();
     }
-    // Wichtig: 'fullTitle' zur Abhängigkeitsliste hinzufügen, damit die Indizes neu berechnet werden,
-    // wenn sich die Sprache und damit der Titel ändert.
-  }, [startTyping, started, fullTitle]);
+  }, [startTyping, started, fullTitle, onAnimationComplete]); // NEU: onAnimationComplete zur Abhängigkeitsliste hinzugefügt
 
 
   return (
     <div className="person-page-container">
-      {/* GEÄNDERT: Gesteuert durch 'backgroundIsVisible' */}
       <header className={`person-hero-section ${backgroundIsVisible ? 'is-visible' : ''}`}>
         <div className="language-switcher-container">
           <LanguageSwitcherIcon />
@@ -73,11 +72,8 @@ function Person({ startTyping }) {
           <p className="person-hero-subtitle">{animatedTitle || '\u00A0'}</p>
         </div>
       </header>
-
-      {/* GEÄNDERT: Gesteuert durch 'contentIsVisible' */}
-      <main 
-        className={`person-content-section ${contentIsVisible ? 'is-visible' : ''}`}
-      >
+      
+      <main className={`person-content-section ${contentIsVisible ? 'is-visible' : ''}`}>
         <p className="person-bio">{bioShort}</p>
 
         <div className="person-contact-info">

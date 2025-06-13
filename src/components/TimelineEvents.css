@@ -75,7 +75,7 @@
   font-size: 2rem;
   color: #000;
   line-height: 1.2;
-  text-align: r;
+  text-align: right;
 }
 
 .event-card .event-date {
@@ -153,8 +153,6 @@
 /*******************************************************************/
 @media (max-width: 1024px) {
   .event-logo {
-    /* Das Logo nimmt nur noch 50% der verfügbaren Höhe ein. */
-    /* Die Breite und der Textabstand passen sich dank JS automatisch an. */
     height: 50%;
   }
 }
@@ -196,7 +194,6 @@
     margin-right: 0 !important; /* Wichtig: Überschreibt den JS-Style auf Mobile */
   }
 
-  /* Auf Mobile hat das Logo wieder eine feste Größe */
   .event-logo-container {
     top: 2rem;
     left: 50%;
@@ -207,7 +204,6 @@
     height: 160px;
   }
   
-  /* Auf Mobile muss die Höhe des Logos zurückgesetzt werden, damit es den Container füllt */
   .event-logo {
     height: 100%;
   }
@@ -215,13 +211,71 @@
   .event-card h2 {
     font-size: 1.5rem;
     margin-right: 0; 
+    text-align: center;
   }
 
   .event-card .event-date, .event-card p {
     margin-right: 0;
+    text-align: center;
   }
 
   .titles-list-wrapper, .slot-list {
     min-height: 500px;
+  }
+}
+
+/************************************************************/
+/* Animationen für das Einfliegen der Hauptkomponenten      */
+/************************************************************/
+
+/* Keyframes (die eigentliche Animationsbeschreibung) */
+@keyframes fly-in-from-left {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fly-in-from-right {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fly-in-from-bottom {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fly-in-from-top {
+  from { opacity: 0; transform: translateY(-50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Initialer Zustand vor der Animation (verhindert Flimmern) */
+.event-content-area,
+.titles-sidebar {
+  opacity: 0;
+}
+
+/* Klassen, die per JavaScript hinzugefügt werden, um die Animation zu starten */
+
+/* GEÄNDERT: Die "von links"-Animation wird durch "von unten" ersetzt. */
+.event-content-area.animate-in {
+  animation: fly-in-from-bottom 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* GEÄNDERT: Die "von rechts"-Animation wird ebenfalls durch "von unten" ersetzt. */
+.titles-sidebar.animate-in {
+  animation: fly-in-from-bottom 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+}
+
+/* Anpassungen für Mobilgeräte (Diese bleiben unverändert und sind korrekt) */
+@media (max-width: 768px) {
+  /* Inhalt kommt weiterhin von unten */
+  .event-content-area.animate-in {
+    animation-name: fly-in-from-bottom;
+  }
+  
+  /* Sidebar kommt von oben (weil Layout umgedreht ist) */
+  .titles-sidebar.animate-in {
+    animation-name: fly-in-from-top;
   }
 }
